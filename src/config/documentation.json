@@ -1,0 +1,237 @@
+{
+    "openapi": "3.1.0",
+    "info":{
+        "title": "Démo API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3030/",
+            "description": "Serveur de développement"
+        },
+        {
+            "url": "http://api.profs.ca",
+            "description": "Serveur en ligne"
+        }
+    ],
+    "paths": {
+        "/api": {
+            "get": {
+                "summary": "Message de bienvenue",
+                "tags": ["Accueil"],
+                "responses": {
+                    "200": {
+                        "description": "Retourne un message de bienvenue",
+                        "content": {
+                            "text/html": {
+                                "example": "<h1>Mon premier serveur web sur express !</h1>"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemons/{id}": {
+            "get": {
+                "summary": "Récupérer un pokemon",
+                "tags": ["Pokemon"],
+                "description": "Récupérer un pokemon en fonction de son id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "Id du pokemon",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "exemple" : "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pokemon retrouvé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "nom": {
+                                            "type": "string",
+                                            "example": "Bulbasaur"
+                                        },
+                                        "type_primaire": {
+                                            "type": "string",
+                                            "example": "Grass"
+                                        },
+                                        "type_secondaire": {
+                                            "type": "string",
+                                            "example": "Poison"
+                                        },
+                                        "pv": {
+                                            "type": "integer",
+                                            "example": 45
+                                        },
+                                        "attaque": {
+                                            "type": "integer",
+                                            "example": 49
+                                        },
+                                        "defense": {
+                                            "type": "integer",
+                                            "example": 49
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description": "Pokemon non rencontré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur, le pokemon [id] n'existe pas"
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description": "Pokemon non rencontré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Echec lors de la récupération du pokemon avec l'id 1245"
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pokemons/liste?page&type": {
+            "get": {
+                "summary": "Récupérer un pokemon",
+                "tags": ["Pokemon"],
+                "description": "Récupérer un pokemon en fonction de son id",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "page",
+                        "description": "Page à voir",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "exemple" : "1"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "type",
+                        "description": "Type des pokemons à regarder",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "exemple": "grass"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Page de pokemon retrouvé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "pokemons" : [
+                                            {
+                                                "nom": {
+                                                    "type": "string",
+                                                    "example": "Bulbasaur"
+                                                },
+                                                "type_primaire": {
+                                                    "type": "string",
+                                                    "example": "Grass"
+                                                },
+                                                "type_secondaire": {
+                                                    "type": "string",
+                                                    "example": "Poison"
+                                                },
+                                                "pv": {
+                                                    "type": "integer",
+                                                    "example": 45
+                                                },
+                                                "attaque": {
+                                                    "type": "integer",
+                                                    "example": 49
+                                                },
+                                                "defense": {
+                                                    "type": "integer",
+                                                    "example": 49
+                                                }
+                                            }
+                                        ],
+                                        "type" : {
+                                            "type": "string",
+                                            "example": "Grass"
+                                        },
+                                        "nombrePokemonTotal": {
+                                            "type": "integer",
+                                            "example": 94
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400" : {
+                        "description": "Pokemon non rencontré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erreur, le pokemon [id] n'existe pas"
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    },
+                    "500" : {
+                        "description": "Pokemon non rencontré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Echec lors de la récupération du pokemon avec l'id 1245"
+                                        }
+                                    }
+                                }   
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
