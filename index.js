@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import dotenv from 'dotenv';
 import pokemonRouter from './src/routes/pokemons.route.js';
+import usersRouter from './src/routes/users.route.js';
 // Importation du module swagger-ui-express
 import swaggerUi from 'swagger-ui-express';
 // Le fichier qui contient la documentation au format JSON, ajustez selon votre projet
@@ -18,8 +19,11 @@ dotenv.config();
 
 // Middleware
 app.use(express.json());
-app.use('/api/pokemons', pokemonRouter);
+
 // Routes
+app.use('/api/pokemons', pokemonRouter);
+app.use('/api/users', usersRouter);
+
 // La route à utiliser pour accéder au rendu visuel de la documentation
 app.use('/api/docs',
         swaggerUi.serve,

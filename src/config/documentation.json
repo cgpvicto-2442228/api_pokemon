@@ -45,7 +45,7 @@
                         "schema": {
                             "type": "integer",
                             "format": "int32",
-                            "exemple" : "1"
+                            "example" : "1"
                         }
                     }
                 ],
@@ -67,7 +67,8 @@
                                         },
                                         "type_secondaire": {
                                             "type": "string",
-                                            "example": "Poison"
+                                            "example": "Poison",
+                                            "nullable": true
                                         },
                                         "pv": {
                                             "type": "integer",
@@ -121,31 +122,31 @@
                 }
             }
         },
-        "/api/pokemons/liste?page&type": {
+        "/api/pokemons/liste": {
             "get": {
                 "summary": "Récupérer un pokemon",
                 "tags": ["Pokemon"],
-                "description": "Récupérer un pokemon en fonction de son id",
+                "description": "Récupérer un pokemon en fonction de son type",
                 "parameters": [
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "page",
                         "description": "Page à voir",
                         "required": false,
                         "schema": {
                             "type": "integer",
                             "format": "int32",
-                            "exemple" : "1"
+                            "example" : "1"
                         }
                     },
                     {
-                        "in": "path",
+                        "in": "query",
                         "name": "type",
                         "description": "Type des pokemons à regarder",
                         "required": false,
                         "schema": {
                             "type": "string",
-                            "exemple": "grass"
+                            "example": "grass"
                         }
                     }
                 ],
@@ -157,34 +158,39 @@
                                 "schema": {
                                     "type": "object",
                                     "properties": {
-                                        "pokemons" : [
-                                            {
-                                                "nom": {
-                                                    "type": "string",
-                                                    "example": "Bulbasaur"
-                                                },
-                                                "type_primaire": {
-                                                    "type": "string",
-                                                    "example": "Grass"
-                                                },
-                                                "type_secondaire": {
-                                                    "type": "string",
-                                                    "example": "Poison"
-                                                },
-                                                "pv": {
-                                                    "type": "integer",
-                                                    "example": 45
-                                                },
-                                                "attaque": {
-                                                    "type": "integer",
-                                                    "example": 49
-                                                },
-                                                "defense": {
-                                                    "type": "integer",
-                                                    "example": 49
+                                        "pokemons" : {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "nom": {
+                                                        "type": "string",
+                                                        "example": "Bulbasaur"
+                                                    },
+                                                    "type_primaire": {
+                                                        "type": "string",
+                                                        "example": "Grass"
+                                                    },
+                                                    "type_secondaire": {
+                                                        "type": "string",
+                                                        "example": "Poison",
+                                                        "nullable": true
+                                                    },
+                                                    "pv": {
+                                                        "type": "integer",
+                                                        "example": 45
+                                                    },
+                                                    "attaque": {
+                                                        "type": "integer",
+                                                        "example": 49
+                                                    },
+                                                    "defense": {
+                                                        "type": "integer",
+                                                        "example": 49
+                                                    }
                                                 }
                                             }
-                                        ],
+                                        },    
                                         "type" : {
                                             "type": "string",
                                             "example": "Grass"
@@ -207,7 +213,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Erreur, le pokemon [id] n'existe pas"
+                                            "example": "Erreur, la page n'existe pas"
                                         }
                                     }
                                 }   
@@ -223,7 +229,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Echec lors de la récupération du pokemon avec l'id 1245"
+                                            "example": "Echec lors de la récupération de la page des pokemons de ce type"
                                         }
                                     }
                                 }   
