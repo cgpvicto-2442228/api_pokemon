@@ -15,9 +15,6 @@ const trouverUnPokemon = async (req, res) => {
         // Appel à la fonction getProfesseur dans le modèle
         const pokemon = await pokemonsModel.getPokemon(req.params.id);
 
-        // On retourne un message d'erreur avec le code 404 si aucun professeur n'a été trouvé
-        // ** à faire en exercice **
-
         // OK - on retourne l'objet professeur
         res.send(pokemon);
 
